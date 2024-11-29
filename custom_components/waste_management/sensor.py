@@ -72,7 +72,7 @@ class WasteManagementSensorEntity(SensorEntity):
         self.async_update()
 
     async def async_update(self) -> None:
-        client = WMClient(self.username, self.password)
+        client = await self.hass.async_add_executor_job(WMClient(self.username, self.password))
         pickup = None
         try:
             await client.async_authenticate()
